@@ -207,8 +207,8 @@ export default function ProfilePage() {
         <div className="space-y-6">
           <h2 className="text-2xl font-bold">Posts</h2>
           {userData.posts.map((post) => (
-            <Card key={post.id}>
-              <CardHeader className="relative">
+            <Card key={post.id} className="container">
+              <CardHeader className="relative container">
                 {editingPost === post.id && tempPost ? (
                   <div className="space-y-4">
                     <Input
@@ -249,15 +249,7 @@ export default function ProfilePage() {
                           </div>
                           <div>{new Date(post.date).toLocaleDateString("en-US")}</div>
                           
-                          {/* <div className="flex items-center gap-1">
-                            <ArrowBigUp className="h-4 w-4 text-destructive" />
-                              {post.likes}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <ThumbsDown className="h-4 w-4 text-destructive" />
-                              {post.dislikes}
-                          </div> */}
-                          {/* Interaction buttons */}
+                          
             <div className="flex items-center gap-2 sm:gap-4">
               <Button
                 variant="ghost"
