@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Edit, Heart, MapPin, Check, X, Camera } from "lucide-react";
+import { Edit, ThumbsUp, ArrowBigDown, ArrowBigUp, ThumbsDown, MapPin, Check, X, Camera, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { useState, useRef } from "react";
 
@@ -15,6 +15,7 @@ interface Post {
   date: string;
   description: string;
   likes: number;
+  dislikes: number;
 }
 
 interface UserData {
@@ -42,6 +43,7 @@ export default function ProfilePage() {
         date: "2024-03-15",
         description: "Shared insights about building scalable applications using Next.js and modern web technologies. The session covered best practices, performance optimization, and real-world examples.",
         likes: 128,
+        dislikes: 28,
       },
       {
         id: 2,
@@ -50,6 +52,7 @@ export default function ProfilePage() {
         date: "2024-03-10",
         description: "Discussed emerging trends in web development, including AI integration, WebAssembly, and the evolution of frontend frameworks.",
         likes: 95,
+        dislikes: 8,
       },
     ],
   });
@@ -151,7 +154,7 @@ export default function ProfilePage() {
                       value={tempUserData.name}
                       onChange={(e) => setTempUserData({ ...tempUserData, name: e.target.value })}
                       placeholder="Name"
-                      className="text-2xl font-bold"
+                      className="text-2xl font-bold text-center"
                     />
                     <Input
                       value={tempUserData.title}
@@ -181,8 +184,8 @@ export default function ProfilePage() {
                   </div>
                 ) : (
                   <div>
-                    <div className="flex justify-between items-start">
-                      <h1 className="text-3xl font-bold mb-2">{userData.name}</h1>
+                    <div className="flex justify-center md:justify-start items-start">
+                      <h1 className="text-3xl font-bold mb-2 text-md-center">{userData.name}</h1>
                       <Button variant="ghost" size="icon" onClick={handleProfileEdit}>
                         <Edit className="h-4 w-4" />
                       </Button>
@@ -245,10 +248,39 @@ export default function ProfilePage() {
                             {post.location}
                           </div>
                           <div>{new Date(post.date).toLocaleDateString("en-US")}</div>
-                          <div className="flex items-center gap-1">
-                            <Heart className="h-4 w-4 text-destructive" />
-                            {post.likes}
+                          
+                          {/* <div className="flex items-center gap-1">
+                            <ArrowBigUp className="h-4 w-4 text-destructive" />
+                              {post.likes}
                           </div>
+                          <div className="flex items-center gap-1">
+                            <ThumbsDown className="h-4 w-4 text-destructive" />
+                              {post.dislikes}
+                          </div> */}
+                          {/* Interaction buttons */}
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 px-2 text-green-600 hover:text-green-700"
+              >
+                <ArrowBigUp className="h-4 w-4 sm:h-5 sm:w-5 mr-1" />
+                <span className="text-xs sm:text-sm">{post.likes}</span>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 px-2 text-red-600 hover:text-red-700"
+              >
+              <ArrowBigDown className="h-4 w-4 sm:h-5 sm:w-5 mr-1" />
+                <span className="text-xs sm:text-sm">{post.dislikes}</span>
+              </Button>
+              <div className="flex items-center text-muted-foreground">
+                <MessageCircle className="h-4 w-4 mr-1" />
+                <span className="text-xs sm:text-sm">{post.dislikes}</span>
+              </div>
+            </div>
+
                         </div>
                       </div>
                       <Button variant="ghost" size="icon" onClick={() => handlePostEdit(post)}>
